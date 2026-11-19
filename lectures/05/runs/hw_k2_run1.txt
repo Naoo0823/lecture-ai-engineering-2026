@@ -1,0 +1,31 @@
+[model] gemini-3.5-flash-lite
+講義資料に基づき、それぞれの違いと「日々のメモ」の扱いについて解説します。
+
+### 1. コンパクションとセッションをまたぐメモリの違い
+
+* **コンパクション（履歴の圧縮）**
+  * **範囲：** コンテキストの中（同じセッション内）で機能します（第3回・PDF p.39）。
+  * **仕組み：** 古い履歴を要約に置き換えることで、コンテキストウィンドウ内に収まるようにします（第3回・PDF p.39）。
+* **セッションをまたぐメモリ（メモリツールなど）**
+  * **範囲：** 外の保存先を利用し、セッションをまたいで持続します（第3回・PDF p.39）。
+  * **仕組み：** ファイル操作などを通じて情報を保存・再注入し、次回の会話の文脈に読み込ませます（第3回・PDF p.39, p.65）。
+
+---
+
+### 2. 日々のメモは全部長期メモリになるのか？
+
+講義資料（OpenClawの実装例など）によると、**日々のメモがすべてそのまま長期メモリになるわけではありません**（第3回・PDF p.40）。
+
+* **日々のメモの扱い：** 一度きりの調べものなどは日々のメモに残るだけにとどまります（第3回・PDF p.40）。
+* **長期メモリへの移行プロセス：** 毎晩の自動見直し（dreaming）などにおいて、「集める」「見比べる（何度も出てくるテーマを探す）」「移す（基準を超えたものだけ残す）」というプロセスを経るため、すべてが長期メモリに蓄積されるわけではありません（第3回・PDF p.40）。これにより長期メモリが膨らむのを防いでいます（第3回・PDF p.40）。
+
+--- trace ---
+[tool call]   search_materials({'query': 'コンパクション'})
+[tool call]   search_materials({'query': 'セッション'})
+[tool call]   search_materials({'query': '長期メモリ'})
+[tool return] search_materials -> {"results": [{"page_id": "lec03-main-p065", "document_id": "lec03-main", "lecture": 3, "document_title": "AIエージェント", "se…
+[tool return] search_materials -> {"results": [{"page_id": "lec02-main-p019", "document_id": "lec02-main", "lecture": 2, "document_title": "基盤モデルの仕組み", "s…
+[tool return] search_materials -> {"results": [{"page_id": "lec03-main-p040", "document_id": "lec03-main", "lecture": 3, "document_title": "AIエージェント", "se…
+[time] 回答完了まで 3.51 秒（検索・埋め込みを含む）
+[usage] 入力 2,568 tokens / 出力 453 tokens / モデル応答 2 回
+[cost] 生成APIの推定コスト: $0.001903 USD（埋め込み・索引構築分は含まない）
